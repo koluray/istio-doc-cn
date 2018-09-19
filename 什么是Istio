@@ -1,0 +1,125 @@
+什么是Istio
+
+云平台为使用它们的组织提供了大量的便利。这是毋庸置疑的，但是去适应云平台可能是在束缚DevOps团队。为了移植性开发者必须使用微服务来构架应用，同时运维人员管理着数量极其巨大并部署在多种混合云平台上的工作负载。Istio就是让你连接，保护，控制并且监控这些服务。
+
+从上层的角度来看，Istio减少了这些工作负载的部署复杂度，并减轻了开发团队身上相应的束缚。它是一个完全开源的服务网格，这个服务网格透明的构建在现有的分布式应用之上。它同时也是一个平台， 它包含了可以让它整合进任意日志或者监管系统的APIs。 Istio多样的特性集可以让你成功有效的运行一个分布式的微服务架构并提供一个统一的方式去保护，连接和监控这些微服务。
+
+——————————
+什么是服务网格
+
+Istio解决的是开发和运维在将单体应用转变为一个分布式微服务时所面临的所有挑战。看它是如何做到的有助于我们更加清楚了解到Istio服务网格的更多细节。
+
+服务网格这个词被用来描述微服务们的网络，它由应用和这些应用之间的交互所组成。当一个服务网格随着规模和复杂度的增加，它可能会变得越来越难于理解和管理。对服务网格的需求中包含服务发现，负载均衡，故障恢复，指标监控。一个服务网格通常还有更加复杂的运维要求，如A/B测试，灰度发布，流量控制，访问控制和端到端的鉴权。
+
+Istio总体上提供了全服务网格的行为洞察和操作控制，并给出了一个完整的解决方案来满足繁杂的服务应用需求。
+
+为什么要使用Istio
+
+Istio让创建部署一个拥有负载均衡，服务到服务的鉴权，监控等等功能的服务网络变得容易，并且不需要更任何的服务代码。你通过部署一个专门的sidecar代理到你的整个环境中将Istio支持添加进服务中，这个代理拦截微服务的所有的网络通信，然后你可以使用Istio的控制位面相关功能来配置和管理，这些功能包括：
+
+1. HTTP，gRPC， WebSocket和TCP的自动负载均衡。
+2. 细粒度的流量行为控制包括丰富的路由规则，重试，故障转移和错误注入。
+3. 提供插入式的策略层和配置API来支持访问控制，流速和配额控制。
+4. 对一个集群中包括进口和入口的所有流量进行自动的指标监控，日志记录和追踪。
+5. 使用基于身份的强鉴权和授权来保护集群内所有的服务到服务的通信。
+
+Istio是为扩展和满足多样性的部署需求而设计的。
+
+————————————
+
+核心功能
+
+Istio为整个服务网络提供了若干一致的关键能力
+
+流量管理
+
+Istio简单的规则配置和流量路由可以让你控制服务间流量和API调用的流程。Istio简化了服务级别的属性配置如熔断器，超时和重试，并且让一些重要的任务设置起来轻而易举，如A/B测试，灰度发布和基于百分比的分流阶段性上线。
+
+通过对你的流量更好的可视化，开箱即用的故障恢复，你可以在错误引起问题之前就捕获到它们，这样不论你面临的什么状况，都可以使得调用更加可靠，网络更加健壮。
+
+安全
+
+Istio的安全能力解放了开发者对应用层的安全关注。Istio提供底层的安全通信通道并且管理鉴权和授权，以及在这个尺度下加密服务间的通信。有了Istio，服务之间的通信被默认的保护，让你在实施跨多种协议和运行时的强制安全策略更加一致，而你只需要一点点甚至是无需对你的应用做出改动。
+
+在Istio保持平台独立的同时，将它和K8S的（或基础设施的）网络策略一同使用时会更加棒，包括在网络层和应用层对Pod2Pod或服务对服务的保护能力。
+
+可观测性
+
+Istio健壮的追踪，监控和日志可以深入的洞见你自己的服务网格里的部署。通过Istio的监控特性可获得服务的性能如何影响业务的上下游流程这样的实质性的理解，同时它可定制的仪表盘提供了针对所有服务的性能的可视化并且可以让你看到性能是如何影响到你的其它的进程。
+
+Istio的Mixer组件负责策略控制和系统整体状态收集。它提供后端抽像和媒介功能，将Istio的其它部分从独立的后端基础设施的具体实现中隔离出来， 并赋予运维人员网格和后端基础设施之间所有的操作细粒度的控制能力。
+
+所有功能特性都让你更加有效的设置，监控并且在服务上实施SLOs。 当然底线是你能够快速有效的检测和修正问题。
+
+平台支持
+
+Istio是平台独立的并被设计为可运行到多种环境之上，包括那些混合云，本地部署，K8S， Mesos和其它的平台。你可以部署Istio到K8S或者运行Consul和Noamd上面。目前Istio支持：
+1. 部署在K8S上的服务
+2. 注册到Consul中的服务
+3. 运行在独立的虚拟机上的服务
+
+整合和定制
+
+Istio的策略执行组件可以被扩展并定制化的整合进现有的为ACLs（访问控制），日志，监控，配额，审计等设计的解决方案中。
+
+——————————
+
+架构
+
+Istio服务网格从逻辑上分成数据位面和控制位面。
+
+1. 数据位面由一组部署为sidecars智能代理（Envoy）构成。这些代理同Mixer一起居中并控制微服务间所有的网络通信， Mixer是一个具有通用目的的策略和自动测量记录中心。
+2. 控制位面管理和配置这些代理的路由流量。更进一步，控制位面配置Mixers去实施策略并收集测量数据。
+
+下面的图表展示了每一个位面上不同的组件：
+
+https://istio.io/docs/concepts/what-is-istio/arch.svg
+
+Envoy
+
+Istio使用一个扩展过的Envoy代理。Envoy是一个由C++开发的高性能代理居中协调服务网格中所有的服务所有进出流量。Istio借助了Envoy中很多内建特性，
+例如：
+
+1. 动态服务发现
+2. 负载均衡
+3. TLS中断
+4. HTTP/2和gRPC代理
+5. 熔断器
+6. 健康检查
+7. 按百分比分流的阶段性上发布
+8. 错误注入
+9. 丰富的指标
+
+Envoy在和相关的服务被部署到同一个K8S的Pod中成为sidecar。这个工作负载允许Istio抽取丰富的关于流量行为上的信号做为属性。 接下来Istio可以在Mixer中使用这些属性以实施策略决策，并且将这些属性发送到监控系统做为整个网格的行为信息。
+
+sidecar代理模型还允许你添加Istio能力到一个现存的工作负载中并且不需要重新构架和重写代码。你可以在设计目标这一章节中读到我们为什么要选择这种方法。
+
+Mixer
+Mixer是一个平台独立的组件。Mixer在整个服务网格中实施访问控制和使用策略，并从Envoy代理和其他服务中收集数据。代理抽取请求级别的属性并将它们发往Mixer进行评估。你可以在我们的Mixer配置文档中找到更多的关于抽取和策略评估的信息。
+
+Mixer包含了一个灵活的插件模型。这个模型使得Istio可以和多变的主机环境以及后端基础设施交互。正因如些，Istio从这些细节中抽像了Envoy代理和Istio-managed的服务。
+
+Pilot
+Pilot为Envoy sidecars提供服务发现，为智能路由（如A/B测试，灰度发布等）提供流量管控以及弹回（如超时，重试，熔断等）能力。
+
+Pilot将控制流量的行为的上层的路由规则转化为Envoy专用的配置并将它们传播到sidecar的运行时。 Pilot抽像特定平台的服务发现机制并将它们全成到一个标准的格式，这个格式可以由任意的符合Envoy数据位面APIs的sidecar所使用。这种解耦允许Istio运行于多种环境如K8S， Consul，Noamd，同时为流量管控维持了相同的操作界面。
+
+Citadel
+Citadel使用内建的身份和凭证管理提供服务到服务和终端用户的强鉴权。你可以在服务网格中使用Citadel去升级未加密流量。 使用Citadel，运维人员可以基于服务身份而不是网络控制来实施策略。从发行版0.5你就可以使用Istio的鉴权特性云控制谁可以访问你的服务。
+
+Galley
+Galley代表其它的Istio控制位面组件去校验用户编写的Istio API配置。 随时时间的过去，Galley将接管如高层配置注入，处理并分发Istio组件等责任。 它将负责将Istio的其它组件从获取底层平台（如K8S）的用户配置细节中隔离出来。
+
+
+设计目标
+有一些关键的设计目标在Istio中得到实现。这些目标是至关重要的它们让系统有能力以高性能大规模的处理服务。
+
+
+最大可能的透明：采用Istio，一个运维或者开发从系统中得到实质性的价值只需要做最少量的工作。为了这个目的，Istio能够自动的将它自己注入到所有的服务之间的网络路径中。Istio使用sidecar代理去捕获流量并且尽可能的通过这些代理自动编程网络层去路由流量而不是去改动任何一点发布好的应用代码。在K8S中这些代理被注入pods中流量被编好的iptables规则捕获。一量sidecar代理被注入并且流量路由编程完成，Istio就可以居中调度所有的流量。这具原则同样被应用于性能。当应用Istio到一个工作负载时，运维会看到为了这个能力只有一个很小的资源开销增加。组件和APIs所有的必须在设计就考虑性能和伸缩。
+
+Incrementality: As operators and developers become more dependent on the functionality that Istio provides, the system must grow with their needs. While we continue to add new features, the greatest need is the ability to extend the policy system, to integrate with other sources of policy and control, and to propagate signals about mesh behavior to other systems for analysis. The policy runtime supports a standard extension mechanism for plugging in other services. In addition, it allows for the extension of its vocabulary to allow policies to be enforced based on new signals that the mesh produces.
+
+Portability: The ecosystem in which Istio is used varies along many dimensions. Istio must run on any cloud or on-premises environment with minimal effort. The task of porting Istio-based services to new environments must be trivial. Using Istio, you are able to operate a single service deployed into multiple environments. For example, you can deploy on multiple clouds for redundancy.
+
+Policy Uniformity: The application of policy to API calls between services provides a great deal of control over mesh behavior. However, it can be equally important to apply policies to resources which are not necessarily expressed at the API level. For example, applying a quota to the amount of CPU consumed by an ML training task is more useful than applying a quota to the call which initiated the work. To this end, Istio maintains the policy system as a distinct service with its own API rather than the policy system being baked into the proxy sidecar, allowing services to directly integrate with it as needed.
+
