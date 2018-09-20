@@ -117,9 +117,10 @@ Galley代表其它的Istio控制位面组件去校验用户编写的Istio API配
 
 最大可能的透明：采用Istio，一个运维或者开发从系统中得到实质性的价值只需要做最少量的工作。为了这个目的，Istio能够自动的将它自己注入到所有的服务之间的网络路径中。Istio使用sidecar代理去捕获流量并且尽可能的通过这些代理自动编程网络层去路由流量而不是去改动任何一点发布好的应用代码。在K8S中这些代理被注入pods中流量被编好的iptables规则捕获。一量sidecar代理被注入并且流量路由编程完成，Istio就可以居中调度所有的流量。这具原则同样被应用于性能。当应用Istio到一个工作负载时，运维会看到为了这个能力只有一个很小的资源开销增加。组件和APIs所有的必须在设计就考虑性能和伸缩。
 
-Incrementality: As operators and developers become more dependent on the functionality that Istio provides, the system must grow with their needs. While we continue to add new features, the greatest need is the ability to extend the policy system, to integrate with other sources of policy and control, and to propagate signals about mesh behavior to other systems for analysis. The policy runtime supports a standard extension mechanism for plugging in other services. In addition, it allows for the extension of its vocabulary to allow policies to be enforced based on new signals that the mesh produces.
+递增性：运维和开发在Istio提供的功能下变得更加独立，系统应当能随他们的需求而增长。当我们持续增加新特性时，为了整合其它来源的策略和控制并能传播关于网格行为信息到其它系统进行分析，最大的需求就是扩展策略系统的能力。为了允许基于网格产生新信号而实施的策略，它还进一步的考虑到它的配置词表的扩展
 
-Portability: The ecosystem in which Istio is used varies along many dimensions. Istio must run on any cloud or on-premises environment with minimal effort. The task of porting Istio-based services to new environments must be trivial. Using Istio, you are able to operate a single service deployed into multiple environments. For example, you can deploy on multiple clouds for redundancy.
+可移植性：在整个生态系统中Istio在多个维度变着花样的被使用。Istio必须能够轻松的运行在任意的云上或者是本地部署中。把基于Istio的服务迁移到新的环境这一任务必须要是极其方便以至于这个任务都是无足轻重的。使用Istio你可以操作一个单一的服务部署到多种环境中。例如你可以为了冗余将其部署到多个云平台上。
 
-Policy Uniformity: The application of policy to API calls between services provides a great deal of control over mesh behavior. However, it can be equally important to apply policies to resources which are not necessarily expressed at the API level. For example, applying a quota to the amount of CPU consumed by an ML training task is more useful than applying a quota to the call which initiated the work. To this end, Istio maintains the policy system as a distinct service with its own API rather than the policy system being baked into the proxy sidecar, allowing services to directly integrate with it as needed.
+策略一致：服务间的API调用的策略应用提供了一个很棒的全网格行为控制。尽管如此在策略应用到那些不需要在API层表现的资源时它是同样重要的。例如，应用一个CPU用量限额到一个ML训练的任务就比应用一个调用次数限额要有用得多。为此，Istio用它自己的API为策略系统维护了一个独有的服务而不是将策略系统嵌入到代理服务sidecar中让服务直接按需整合。
+
 
